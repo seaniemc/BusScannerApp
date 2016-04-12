@@ -24,8 +24,13 @@ app.controller('LoginCtrl', function($scope, $state) {
     "password": ""
   };
   
-  $scope.login = function () {
-      console.log("LoginCtrl::login");
+  $scope.login = function (form) {
+      
+      if(form.valid){
+          console.log("LoginCtrl::login");
+      }else{
+          console.log("invalid form");
+      }
   };
   
 });
