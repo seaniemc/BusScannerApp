@@ -5,12 +5,12 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var busScanner = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+var app = angular.module('busscanner', ['ionic', 'busscanner.controllers', 'busscanner.services'])
 
 var localDB = new PouchDB("AddUsers");
 var remoteDB = new PouchDB("https://seaniemc.cloudant.com/_all_dbs");
 
-busScanner.run(function($ionicPlatform) {
+app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -27,7 +27,7 @@ busScanner.run(function($ionicPlatform) {
   });
 })
 
-busScanner.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -78,7 +78,7 @@ busScanner.config(function($stateProvider, $urlRouterProvider) {
     views: {
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+        controller: 'LoginCtrl'
       }
     }
   });

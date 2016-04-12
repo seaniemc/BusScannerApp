@@ -1,6 +1,6 @@
-angular.module('starter.controllers', [])
+var app = angular.module('busscanner.controllers', []);
 
-.controller('DashCtrl', function($scope) {})
+ app.controller('DashCtrl', function($scope) {})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -17,12 +17,15 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
+//the login controller
+app.controller('LoginCtrl', function($scope, $state) {
+  $scope.formData = {
+    "email": "",
+    "password": ""
   };
+  
+  $scope.login = function () {
+      console.log("LoginCtrl::login");
+  };
+  
 });
