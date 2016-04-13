@@ -20,7 +20,15 @@
                 
                 <div class="form-errors"
                     ng-messages="loginForm.email.$error">
+                    <!--
                     <div ng-messages-include="templates/form-errors.html"></div>
+                    -->
+                    <div class="form-error" ng-message="required">
+                        This field is required
+                    </div>
+                    <div class="form-error" ng-message="email">
+                        Please enter a valid email
+                    </div>
                 </div>
                 
 				<label class="item item-input item-floating-label" 
@@ -30,8 +38,12 @@
 					       placeholder="Password"
 					       ng-model="formData.password" 
                            name="password"
-                           ng-required="true">
+                           ng-required="true"
+                           ng-minlength="8">
 				</label >
+                <div class="form-errors" ng-messages="loginForm.password.$error">
+                    <div class="form-error" ng-message="minLength">Password to short</div>
+                </div>
 			</ion-list >
 			<button class="button button-royal button-block"
 			        type="submit" >Login

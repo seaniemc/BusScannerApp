@@ -2,19 +2,18 @@ var app = angular.module('busscanner.controllers', []);
 
  app.controller('DashCtrl', function($scope) {})
 
-app.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+app.controller('SignupCtrl', function($scope, $state) {
+  $scope.formData = {
+		"firstName": "",
+        "lastName": "",
+		"email": "",
+		"password": ""
+	};
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+	$scope.signup = function () {
+		console.log("SignupCtrl::signup");
+		//TODO
+	};
 })
 
 //the login controller
@@ -25,10 +24,11 @@ app.controller('LoginCtrl', function($scope, $state) {
   };
   
   $scope.login = function (form) {
-       console.log("LoginCtrl::login");
-      if(form.valid){
-          
-      }else{
+       
+      if(form.isvalid){
+          console.log("LoginCtrl::login");
+      }
+      else{
           console.log("invalid form");
       }
   };

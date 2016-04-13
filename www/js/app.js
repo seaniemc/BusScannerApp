@@ -54,12 +54,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
     }
   })
 
-  .state('tab.chats', {
-      url: '/chats',
+  .state('tab.signup', {
+      url: '/signup',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+        'tab-signup': {
+          templateUrl: 'templates/tab-signup.html',
+          controller: 'SignupCtrl'
         }
       }
     })
@@ -73,11 +73,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     })
 
-  .state('tab.account', {
-    url: '/account',
+  .state('tab.login', {
+    url: '/login',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
+      'tab-login': {
+        templateUrl: 'templates/tab-login.html',
         controller: 'LoginCtrl'
       }
     }
