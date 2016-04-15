@@ -1,7 +1,7 @@
-angular.module('busscanner.services', []);
+var app = angular.module('busscanner.services', []);
 
 
-factory("PuchDBListener", ["$rootScope", function($rootScope) {
+app.factory("PuchDBListener", ["$rootScope", function($rootScope) {
   
   localDB.changes({
     //continuous looking for changes
@@ -29,5 +29,5 @@ factory("PuchDBListener", ["$rootScope", function($rootScope) {
       }
     }
   })
-  
+  return true;
 }]);

@@ -8,7 +8,7 @@
 var app = angular.module('busscanner', ['ionic', 'busscanner.controllers', 'busscanner.services'])
 
 var localDB = new PouchDB("AddUsers");
-var remoteDB = new PouchDB("https://seaniemc.cloudant.com/_all_dbs");
+var remoteDB = new PouchDB("https://seaniemc.cloudant.com/users");
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -63,15 +63,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
+    
 
   .state('tab.login', {
     url: '/login',

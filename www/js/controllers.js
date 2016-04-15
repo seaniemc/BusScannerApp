@@ -4,13 +4,7 @@ var app = angular.module('busscanner.controllers', []);
 
 app.controller('SignupCtrl', function($scope, PuchDBListener, $state) {
     //creates an array of empty users
-    $scope.users[];
-    
-    $scope.on("add", function(event, users) {
-        $scope.users.push(user);
-    });
-    
-    
+    $scope.users = [];
     
     $scope.formData = {
             "firstName": "",
@@ -19,10 +13,29 @@ app.controller('SignupCtrl', function($scope, PuchDBListener, $state) {
             "password": ""
         };
 
-        $scope.signup = function () {
+        $scope.signup = (function (form) {
+            
+            if(form.isvalid){
             console.log("SignupCtrl::signup");
-            //TODO
-        };
+            }
+            else{
+                console.log("invalid form");
+            }
+        }).then(function(result){
+            if(result !== ""){
+                if($scope.hasOwnProperty("users")!== true){
+                    $scope.users = [];
+                }
+                localDB.post({form: result});
+            }else {
+                console.log("Action not completed");
+            }
+        })
+    
+    $scope.$on("add", function(event, users) {
+        $scope.users.push(user);
+    });
+    
 });
 
 //the login controller
