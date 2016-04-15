@@ -1,50 +1,33 @@
-angular.module('busscanner.services', [])
+angular.module('busscanner.services', []);
 
-.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
 
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
-
-  return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
+factory("PuchDBListener", ["$rootScope", function($rootScope) {
+  
+  localDB.changes({
+    //continuous looking for changes
+    continuous: true,
+    //when change it calls the call back
+    onChange: function(change){
+      //if the change is not a delete, then we tell rootscope there is a change coming 
+      if(!change.deleted){
+        $rootScope.$apply(function(){
+          //get the change based on the id
+          localDB.get(change.id, function(err, doc){
+            $rootScope.$apply(function(){
+              if (err){ 
+                  console.log(err);
+                  }
+                  //if its not an error broadcast the change
+              $rootScope.$broadcast('add', doc);
+            })
+          });
+        })
+      }else{
+        $rootScope.$apply(function(){
+          $rootScope.$broadcast('delete', change.id);
+        });
       }
-      return null;
     }
-  };
-});
+  })
+  
+}]);
