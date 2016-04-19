@@ -1,6 +1,6 @@
 var app = angular.module('busscanner.services', []);
 
-app.service("UserService", ["$rootScope", function($rootScope) {
+app.service("UserService", ["$rootScope", '$timeout', '$q', function($rootScope, $timeout, $q) {
   var vm = this;
   vm.login = login;
 
@@ -15,48 +15,53 @@ app.service("UserService", ["$rootScope", function($rootScope) {
   vm.saveUser = saveUser;
 
   function login(user) {
-    db.allDocs({
-      include_docs: true,
-      descending: true
-    }, function(err, doc) {
-      console.log('Checking users on remote db...');
+    return $q(function(resolve, reject) {
+      db.allDocs({
+        include_docs: true,
+        descending: true
+      }, function(err, doc) {
+        console.log('Checking users on remote db...');
 
-      doc.rows.forEach(function(entry) {
-        if (element.email === user.email && element.password === user.password) {
-          vm.loggedIn = true;
-          localDb.put(entry);
-          // break;
+        doc.rows.forEach(function(entry) {
+          console.log('entry: ' + JSON.stringify(entry.doc));
+          if (entry.doc.email === user.email && entry.doc.password === user.password) {
+            vm.loggedIn = true;
+            console.log('1: vm.loggedIn: ' + vm.loggedIn);
+            user._id = Date.now().toString();
+            // remove all other users
+            localDb.put(user);
+            // break;
+          }
+        });
+
+        if (vm.loggedIn) {
+
+
+          resolve('logged in');
+        } else {
+
+          reject('incorrect details');
         }
+
+        $timeout(function() {
+          $rootScope.$apply();
+        });
+
+      }).catch(function(err) {
+        console.log('err: ' + err);
       });
 
       $timeout(function() {
         $rootScope.$apply();
       });
 
-    }).catch(function(err) {
-      console.log('err: ' + err);
-          var alertPopup =  $ionicPopup.alert({
-            title: 'Unsuccessfully logged in.',
-            template: 'Try Again'
-        });
-        alertPopup.then(function(res) {
-            $state.go('tab.dash');
-        });
-    }).then(function(response){
-       $ionicPopup.confirm({
-            title: 'Successfully logged in.',
-            template: ''
-        });
-    });
-
-    $timeout(function() {
-      $rootScope.$apply();
-    });
-  }
+    }, 1000)
+  };
 
   function saveUser(firstname, lastName, email, password) {
 
   };
+
 }]);
 
 app.service("PuchDBListener", ["$rootScope", function($rootScope) {

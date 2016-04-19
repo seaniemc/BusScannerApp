@@ -59,21 +59,39 @@ app.controller('SignupCtrl', ['$scope', 'PuchDBListener', "$q", '$state', 'UserS
 }]);
 
 //the login controller
-app.controller('LoginCtrl', function($scope, $state, UserService) {
-    var vm = this;
-    vm.login = login;
+app.controller('LoginCtrl', function($scope, $state, UserService, $ionicPopup) {
+    //var vm = this;
+    //vm.login = login;
     console.log('in LoginCtrl');
-    
-    $scope.userLogin = function(formData){
+
+    $scope.userLogin = function(formData) {
         console.log('login:');
         console.log('formData: ' + JSON.stringify(formData));
-        UserService.login(formData);
+        var promise = UserService.login(formData);
+
+        promise.then(function(data) {
+            console.log('success: ' + data);
+            var alertPopup = $ionicPopup.alert({
+                title: 'Successfully logged in',
+                template: ''
+            });
+
+            alertPopup.then(function(res) {
+                $state.go('tab.dash');
+            });
+        }, function(data) {
+            console.log('failure: ' + data);
+            $ionicPopup.alert({
+                title: 'Login Unsuccessful',
+                template: 'Try Again'
+            });
+        });
     }
 
-    function login(formData) {
-        console.log('login:');
-        console.log('formData: ' + JSON.stringify(formData));
-        UserService.login(formData);
-    }
+    //function login(formData) {
+    //    console.log('login:');
+    //    console.log('formData: ' + JSON.stringify(formData));
+    //   UserService.login(formData);
+    //}
 
 });
