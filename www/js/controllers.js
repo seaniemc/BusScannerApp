@@ -2,7 +2,7 @@ var app = angular.module('busscanner.controllers', []);
 
 app.controller('DashCtrl', function($scope) {});
 
-app.controller('SignupCtrl', ['$scope', 'PuchDBListener', "$q", '$state', 'UserService', function($scope, PuchDBListener, $q, $state, UserService) {
+app.controller('SignupCtrl', ['$scope', 'PuchDBListener', "$q", '$state', 'UserService', '$ionicPopup', function($scope, PuchDBListener, $q, $state, UserService, $ionicPopup) {
     //creates an array of empty users
     var timeStamp = String(new Date().getTime());
     // $scope.buscanuser = [];
@@ -17,10 +17,35 @@ app.controller('SignupCtrl', ['$scope', 'PuchDBListener', "$q", '$state', 'UserS
     // };
 
 
-    $scope.signup = function(formData) {
-        console.log('formData: ' + JSON.stringify(formData));
+    console.log('in LoginCtrl');
 
-        UserService.saveUser(formData.firstname, formData.lastName, formData.email, formData.password);
+    $scope.signup = function(formData) {
+        console.log('signUp:');
+        console.log('formData: ' + JSON.stringify(formData));
+        var promise = UserService.saveUser(formData);
+
+        promise.then(function(data) {
+            console.log('success: ' + data);
+            var alertPopup = $ionicPopup.alert({
+                title: 'Successfully signed up',
+                template: ''
+            });
+
+            alertPopup.then(function(res) {
+                $state.go('tab.dash');
+            });
+            
+            UserService.login(formData);    // auto login
+        }, function(data) {
+            console.log('failure: ' + data);
+            $ionicPopup.alert({
+                title: 'Signup Unsuccessful',
+                template: 'Try Again'
+            });
+        });
+    }
+
+        
         // if (form.isvalid) {
         //     console.log("SignupCtrl::signup");
         // } else {
@@ -49,12 +74,11 @@ app.controller('SignupCtrl', ['$scope', 'PuchDBListener', "$q", '$state', 'UserS
         //     }
         // });
 
-    };
 
 
-    $scope.$on("add", function(event, buscanusers) {
-        $scope.busscanuser.push(buscanusers);
-    });
+    // $scope.$on("add", function(event, buscanusers) {
+        // $scope.busscanuser.push(buscanusers);
+    // });
 
 }]);
 

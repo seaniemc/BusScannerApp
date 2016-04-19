@@ -23,7 +23,10 @@ app.service("UserService", ["$rootScope", '$timeout', '$q', function($rootScope,
         console.log('Checking users on remote db...');
 
         doc.rows.forEach(function(entry) {
-          console.log('entry: ' + JSON.stringify(entry.doc));
+          if(!loggedIn){
+             console.log('entry: ' + JSON.stringify(entry.doc));
+          }
+         
           if (entry.doc.email === user.email && entry.doc.password === user.password) {
             vm.loggedIn = true;
             console.log('1: vm.loggedIn: ' + vm.loggedIn);
@@ -58,23 +61,32 @@ app.service("UserService", ["$rootScope", '$timeout', '$q', function($rootScope,
     }, 1000)
   };
 
-  function saveUser(firstname, lastName, email, password) {
+  function saveUser(formData) {
+    return $q(function(resolve, reject) {
+      formData._id = Date.now().toString;
+      
+      var newUser = {};
+      newUser.firstName = formData.firstName;
+      newUser.lastName = formData.lastName;
+      newUser.email = formData.email;
+      newUser.password = formData.password;
+      newUser._id = Date.now().toString();
+      
+      console.log('saveUser::formData: ' + JSON.stringify(formData));
+      console.log('newUser::formData: ' + JSON.stringify(newUser));
+      
+      db.put(newUser).then(function(response){
+         resolve('signed up');
+      }).catch(function(err){
+        reject('incorrect details');
+      });
 
+    }, 1000)
   };
 
 }]);
 
 app.service("PuchDBListener", ["$rootScope", function($rootScope) {
-
-
-
-
-
-
-
-
-
-
 
   localDB.changes({
     //continuous looking for changes
