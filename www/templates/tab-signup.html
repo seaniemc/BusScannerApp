@@ -1,16 +1,10 @@
-<ion-view view-title="Signup"
-          hide-back-button="true" >
-	<ion-content padding="true"
-	             scroll="false" >
+<ion-view view-title="Signup" hide-back-button="true">
+	<ion-content padding="true" scroll="false">
 
 		<!-- Form with floating labels -->
-		<form name="signupForm"
-		      novalidate="novalidate"
-		      ng-submit="signup(signupForm)" >
-			<ion-list >
-
-				<label class="item item-input item-floating-label"
-				       ng-class="{'has-error':signupForm.firstName.$invalid}" >
+		<form name="signupForm" novalidate="novalidate" ng-submit="signup(formData)">
+			<ion-list>
+				<label class="item item-input item-floating-label" ng-class="{'has-error':signupForm.firstName.$invalid}">
 					<span class="input-label" >First Name</span >
 					<input type="text"
 					       placeholder="First Name"
@@ -68,7 +62,7 @@
 
 			</ion-list >
 			<button class="button button-royal button-block"
-			        type="submit" >Sign up
+			        type="submit" ng-disabled="signupForm.$invalid" >Sign up
 			</button >
 		</form >
 

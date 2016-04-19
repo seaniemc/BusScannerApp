@@ -1,15 +1,10 @@
-<ion-view view-title="Login"
-          hide-back-button="true" >
-	<ion-content padding="true"
-	             scroll="false" >
+<ion-view view-title="Login" hide-back-button="true">
+	<ion-content padding="true" scroll="false">
 
 		<!-- Form with floating labels -->
-		<form ng-submit="login(loginForm)" 
-                novalidate = "novalidate"
-                name="loginForm">
-			<ion-list >
-				<label class="item item-input item-floating-label" 
-                        ng-class="{'has-error': loginForm.email.$invalid}">
+		<form ng-submit="userLogin(formData)" novalidate="novalidate" name="loginForm">
+			<ion-list>
+				<label class="item item-input item-floating-label" ng-class="{'has-error': loginForm.email.$invalid}">
 					<span class="input-label" >Email</span >
 					<input type="email"
 					       placeholder="Email"
@@ -39,15 +34,16 @@
 					       ng-model="formData.password" 
                            name="password"
                            ng-required="true"
-                           ng-minlength="8">
+                           ng-minlength="4">
 				</label >
                 <div class="form-errors" ng-messages="loginForm.password.$error">
                     <div class="form-error" ng-message="minLength">Password to short</div>
                 </div>
 			</ion-list >
 			<button class="button button-royal button-block"
-			        type="submit" >Login
+			        type="submit" ng-disabled="loginForm.$invalid">Login
 			</button >
+			<!--ng-click="login(formData)"-->
 		</form>
 		<p class="text-center" >
 			Don't have an account?

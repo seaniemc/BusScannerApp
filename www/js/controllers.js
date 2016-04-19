@@ -1,58 +1,79 @@
 var app = angular.module('busscanner.controllers', []);
 
- app.controller('DashCtrl', function($scope) {})
+app.controller('DashCtrl', function($scope) {});
 
-app.controller('SignupCtrl', function($scope, PuchDBListener, $state) {
+app.controller('SignupCtrl', ['$scope', 'PuchDBListener', "$q", '$state', 'UserService', function($scope, PuchDBListener, $q, $state, UserService) {
     //creates an array of empty users
-    $scope.users = [];
-    
-    $scope.formData = {
-            "firstName": "",
-            "lastName": "",
-            "email": "",
-            "password": ""
-        };
+    var timeStamp = String(new Date().getTime());
+    // $scope.buscanuser = [];
 
-        $scope.signup = (function (form) {
-            
-            if(form.isvalid){
-            console.log("SignupCtrl::signup");
-            }
-            else{
-                console.log("invalid form");
-            }
-        }).then(function(result){
-            if(result !== ""){
-                if($scope.hasOwnProperty("users")!== true){
-                    $scope.users = [];
-                }
-                localDB.post({form: result});
-            }else {
-                console.log("Action not completed");
-            }
-        })
-    
-    $scope.$on("add", function(event, users) {
-        $scope.users.push(user);
+    // console.log('$scope.firstName: ' + JSON.stringify($scope.firstName));
+    // $scope.busscanuser = {
+
+    //     "firstName": $scope.firstName,
+    //     "lastName": $scope.busscanuser.lastName,
+    //     "email": $scope.busscanuser.email,
+    //     "password": $scope.busscanuser.password
+    // };
+
+
+    $scope.signup = function(formData) {
+        console.log('formData: ' + JSON.stringify(formData));
+
+        UserService.saveUser(formData.firstname, formData.lastName, formData.email, formData.password);
+        // if (form.isvalid) {
+        //     console.log("SignupCtrl::signup");
+        // } else {
+        //     console.log("invalid form");
+        // }
+
+        // if (signupForm.isvalid) {
+        //     if ($scope.hasOwnProperty("buscanusers") !== true) {
+        //         $scope.buscanusers = [];
+        //     }
+
+        //     console.log('form is valid');
+        // } else {
+        //     console.log('form is invalid');
+        // }
+        // .then(function(result) {
+        //     if (result !== "") {
+        //         if ($scope.hasOwnProperty("buscanusers") !== true) {
+        //             $scope.buscanusers = [];
+        //         }
+        //         localDB.post({
+        //             form: result
+        //         });
+        //     } else {
+        //         console.log("Action not completed");
+        //     }
+        // });
+
+    };
+
+
+    $scope.$on("add", function(event, buscanusers) {
+        $scope.busscanuser.push(buscanusers);
     });
-    
-});
+
+}]);
 
 //the login controller
-app.controller('LoginCtrl', function($scope, $state) {
-  $scope.formData = {
-    "email": "",
-    "password": ""
-  };
-  
-  $scope.login = function (form) {
-       
-      if(form.isvalid){
-          console.log("LoginCtrl::login");
-      }
-      else{
-          console.log("invalid form");
-      }
-  };
-  
+app.controller('LoginCtrl', function($scope, $state, UserService) {
+    var vm = this;
+    vm.login = login;
+    console.log('in LoginCtrl');
+    
+    $scope.userLogin = function(formData){
+        console.log('login:');
+        console.log('formData: ' + JSON.stringify(formData));
+        UserService.login(formData);
+    }
+
+    function login(formData) {
+        console.log('login:');
+        console.log('formData: ' + JSON.stringify(formData));
+        UserService.login(formData);
+    }
+
 });

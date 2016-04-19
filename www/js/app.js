@@ -7,8 +7,8 @@
 // 'starter.controllers' is found in controllers.js
 var app = angular.module('busscanner', ['ionic', 'busscanner.controllers', 'busscanner.services'])
 
-var localDB = new PouchDB("AddUsers");
-var remoteDB = new PouchDB("https://seaniemc.cloudant.com/users");
+var localDB = new PouchDB("busscanusers");
+var remoteDB = new PouchDB("https://seaniemc.cloudant.com/busscanusers");
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
