@@ -12,7 +12,7 @@ app.controller('DashCtrl', function($scope, ionicTimePicker) {
     ];
     
     //this method
-     $scope.openTimePicker1 = function () { 
+     $scope.openTimePicker = function () { 
         var ipObj1 = {
             callback: function (val) {      //Mandatory
             if (typeof (val) === 'undefined') {

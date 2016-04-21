@@ -4,7 +4,7 @@
    <form name="signupForm" novalidate="novalidate" ng-submit="signup(formData)">
 			<ion-list>
 				<label class="item item-input item-floating-label" 
-					<span class="input-label" >Departure:  </span >
+					<span class="input-label">Departure:</span>
               <select class="selectCity" ng-options="destination.name for destination in destinations" ng-model="depatureCity"></select>
               <br></br>
                 <div>
@@ -12,14 +12,10 @@
                 </div>
 				 </label >
 				
-          <label class="item item-input item-floating-label"
-                ng-class="{'has-error':signupForm.email.$invalid}" >
-            <span class="input-label" >Email</span >
-            <input type="email"
-                  placeholder="Email"
-                  name="email"
-                  ng-model="formData.email"
-                  ng-required="true" >
+          <label class="item item-input item-floating-label">
+               <button class="button button-full button-positive">
+                Select Time
+              </button>
           </label >
                 
           <label class="item item-input item-floating-label" 
