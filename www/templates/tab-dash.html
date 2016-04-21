@@ -12,6 +12,15 @@
                 </div>
 				 </label >
 				
+          <label class="item item-input item-floating-label"
+                ng-class="{'has-error':signupForm.email.$invalid}" >
+            <span class="input-label" >Email</span >
+            <input type="email"
+                  placeholder="Email"
+                  name="email"
+                  ng-model="formData.email"
+                  ng-required="true" >
+          </label >
                 
           <label class="item item-input item-floating-label" 
 					<span class="input-label" >Arrival:  </span >
@@ -21,40 +30,6 @@
                   {{arrivalCity.name}}
                 </div>
 				 </label >
-				<label class="item item-input item-floating-label"
-				       ng-class="{'has-error':signupForm.email.$invalid}" >
-					<span class="input-label" >Email</span >
-					<input type="email"
-					       placeholder="Email"
-					       name="email"
-					       ng-model="formData.email"
-					       ng-required="true" >
-				</label >
-				<div class="form-errors"
-				     ng-messages="signupForm.email.$error"
-				     ng-messages-include="templates/form-errors.html" >
-				</div >
-
-
-				<label class="item item-input item-floating-label"
-				       ng-class="{'has-error':signupForm.password.$invalid}" >
-					<span class="input-label" >Password</span >
-					<input type="password"
-					       placeholder="Password"
-					       name="password"
-					       ng-model="formData.password"
-					       ng-required="true"
-					       ng-minlength="4" >
-				</label >
-				<div class="form-errors"
-				     ng-messages="signupForm.password.$error"
-				     ng-messages-include="templates/form-errors.html" >
-					<div class="form-error"
-					     ng-message="minlength" >Password too short
-					</div >
-				</div >
-
-
 			</ion-list >
 			<button class="button button-royal button-block"
 			        type="submit" ng-disabled="signupForm.$invalid" >Search Times
