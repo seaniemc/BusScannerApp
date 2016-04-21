@@ -13,9 +13,12 @@
 				 </label >
 				
           <label class="item item-input item-floating-label">
-               <button class="button button-full button-positive">
+               <button class="button button-full button-energized"  ng-click="openTimePicker()" ng-model="selectedTime">
                 Select Time
               </button>
+              <div >
+                {{openTimePicker.ipObj1.callback}}
+              </div>
           </label >
                 
           <label class="item item-input item-floating-label" 

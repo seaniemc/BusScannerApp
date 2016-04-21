@@ -32,15 +32,18 @@ app.config(function($stateProvider, $urlRouterProvider, ionicTimePickerProvider)
   // Each state's controller can be found in controllers.js
   
   //ionicTimePickerProvider
-  var timePickerObj = {
-      inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
-      format: 24,
-      step: 15,
-      setLabel: 'Set',
-      closeLabel: 'Close'
-    };
-    ionicTimePickerProvider.configTimePicker(timePickerObj);
+  var configTimePicker = this;
   
+  //this.configTimePicker = function () {
+    var timePickerObj = {
+        inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
+        format: 24,
+        step: 15,
+        setLabel: 'Set',
+        closeLabel: 'Close'
+      };
+      ionicTimePickerProvider.configTimePicker(timePickerObj);
+  //}
   
   $stateProvider
 

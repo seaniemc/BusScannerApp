@@ -25,7 +25,7 @@ app.controller('DashCtrl', function($scope, ionicTimePicker) {
             inputTime: 50400,   //Optional
             format: 24,         //Optional
             step: 15,           //Optional
-            setLabel: 'Set2'    //Optional
+            setLabel: 'Set'    //Optional
         };
 
     ionicTimePicker.openTimePicker(ipObj1);
