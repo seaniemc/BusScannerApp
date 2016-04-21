@@ -1,6 +1,6 @@
 var app = angular.module('busscanner.controllers', []);
 
-app.controller('DashCtrl', function($scope) {
+app.controller('DashCtrl', function($scope, ionicTimePicker) {
     $scope.destinations = [
         {name:"Galway"},
         {name:"Sligo"},
@@ -10,6 +10,26 @@ app.controller('DashCtrl', function($scope) {
         {name:"Belfast"},
         {name:"Kilkenny"}
     ];
+    
+    //this method
+     $scope.openTimePicker1 = function () { 
+        var ipObj1 = {
+            callback: function (val) {      //Mandatory
+            if (typeof (val) === 'undefined') {
+                console.log('Time not selected');
+            } else {
+                var selectedTime = new Date(val * 1000);
+                console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
+            }
+            },
+            inputTime: 50400,   //Optional
+            format: 24,         //Optional
+            step: 15,           //Optional
+            setLabel: 'Set2'    //Optional
+        };
+
+    ionicTimePicker.openTimePicker(ipObj1);
+    };
 });
 
 app.controller('SignupCtrl', ['$scope', "$q", '$state', 'UserService', '$ionicPopup', function($scope, $q, $state, UserService, $ionicPopup) {

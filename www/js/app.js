@@ -5,10 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('busscanner', ['ionic', 'busscanner.controllers', 'busscanner.services'])
-
-var localDB = new PouchDB("busscanusers");
-var remoteDB = new PouchDB("https://seaniemc.cloudant.com/busscanusers");
+var app = angular.module('busscanner', ['ionic', 'busscanner.controllers', 'busscanner.services', 'ionic-timepicker'])
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -27,12 +24,24 @@ app.run(function($ionicPlatform) {
   });
 })
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider, ionicTimePickerProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
+  
+  //ionicTimePickerProvider
+  var timePickerObj = {
+      inputTime: (((new Date()).getHours() * 60 * 60) + ((new Date()).getMinutes() * 60)),
+      format: 24,
+      step: 15,
+      setLabel: 'Set',
+      closeLabel: 'Close'
+    };
+    ionicTimePickerProvider.configTimePicker(timePickerObj);
+  
+  
   $stateProvider
 
   // setup an abstract state for the tabs directive
