@@ -1,27 +1,28 @@
 var app = angular.module('busscanner.controllers', []);
 
-app.controller('DashCtrl', function($scope) {});
+app.controller('DashCtrl', function($scope) {
+    $scope.destinations = [
+        {name:"Galway"},
+        {name:"Sligo"},
+        {name:"Dublin"},
+        {name:"Limerick"},
+        {name:"Cork"},
+        {name:"Belfast"},
+        {name:"Kilkenny"}
+    ];
+});
 
-app.controller('SignupCtrl', ['$scope', 'PuchDBListener', "$q", '$state', 'UserService', '$ionicPopup', function($scope, PuchDBListener, $q, $state, UserService, $ionicPopup) {
+app.controller('SignupCtrl', ['$scope', "$q", '$state', 'UserService', '$ionicPopup', function($scope, $q, $state, UserService, $ionicPopup) {
     //creates an array of empty users
     var timeStamp = String(new Date().getTime());
-    // $scope.buscanuser = [];
-
-    // console.log('$scope.firstName: ' + JSON.stringify($scope.firstName));
-    // $scope.busscanuser = {
-
-    //     "firstName": $scope.firstName,
-    //     "lastName": $scope.busscanuser.lastName,
-    //     "email": $scope.busscanuser.email,
-    //     "password": $scope.busscanuser.password
-    // };
 
 
-    console.log('in LoginCtrl');
+    console.log('in SignupCtrl');
 
     $scope.signup = function(formData) {
         console.log('signUp:');
         console.log('formData: ' + JSON.stringify(formData));
+        //passes the formData ie(firstName, lastName, email, password) UserService
         var promise = UserService.saveUser(formData);
 
         promise.then(function(data) {
@@ -44,42 +45,7 @@ app.controller('SignupCtrl', ['$scope', 'PuchDBListener', "$q", '$state', 'UserS
             });
         });
     }
-
-        
-        // if (form.isvalid) {
-        //     console.log("SignupCtrl::signup");
-        // } else {
-        //     console.log("invalid form");
-        // }
-
-        // if (signupForm.isvalid) {
-        //     if ($scope.hasOwnProperty("buscanusers") !== true) {
-        //         $scope.buscanusers = [];
-        //     }
-
-        //     console.log('form is valid');
-        // } else {
-        //     console.log('form is invalid');
-        // }
-        // .then(function(result) {
-        //     if (result !== "") {
-        //         if ($scope.hasOwnProperty("buscanusers") !== true) {
-        //             $scope.buscanusers = [];
-        //         }
-        //         localDB.post({
-        //             form: result
-        //         });
-        //     } else {
-        //         console.log("Action not completed");
-        //     }
-        // });
-
-
-
-    // $scope.$on("add", function(event, buscanusers) {
-        // $scope.busscanuser.push(buscanusers);
-    // });
-
+              
 }]);
 
 //the login controller

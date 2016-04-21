@@ -23,7 +23,7 @@ app.service("UserService", ["$rootScope", '$timeout', '$q', function($rootScope,
         console.log('Checking users on remote db...');
 
         doc.rows.forEach(function(entry) {
-          if(!loggedIn){
+          if(!vm.loggedIn){
              console.log('entry: ' + JSON.stringify(entry.doc));
           }
          
