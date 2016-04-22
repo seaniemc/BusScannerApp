@@ -11,6 +11,7 @@ app.controller('DashCtrl', function($scope, ionicTimePicker) {
         {name:"Kilkenny"}
     ];
     
+    $scope.selectedTime;
     //this method
      $scope.openTimePicker = function () { 
         var ipObj1 = {
@@ -18,8 +19,8 @@ app.controller('DashCtrl', function($scope, ionicTimePicker) {
             if (typeof (val) === 'undefined') {
                 console.log('Time not selected');
             } else {
-                var selectedTime = new Date(val * 1000);
-                console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
+                $scope.selectedTime = new Date(val * 1000);
+                console.log('Selected epoch is : ', val, 'and the time is ', $scope.selectedTime.getUTCHours(), 'H :', $scope.selectedTime.getUTCMinutes(), 'M');
             }
             },
             inputTime: 50400,   //Optional
